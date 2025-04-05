@@ -17,7 +17,7 @@ from langchain_core.runnables import RunnableSequence
 # Suppress warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-# Initialize BERT (with fallback to fuzzywuzzy)
+# Initialize BERT (with silent fallback to fuzzywuzzy)
 bert_available = False
 tokenizer = None
 model = None
@@ -30,12 +30,11 @@ def load_bert():
         tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
         model = BertModel.from_pretrained('bert-base-uncased')
         bert_available = True
-        st.write("BERT loaded successfully.")
-        return tokenizer, model
-    except (ImportError, Exception) as e:
-        st.error(f"Failed to load BERT: {e}. Using fuzzywuzzy fallback.")
+        # st.write("BERT loaded successfully.")  # Commented out to avoid clutter
+    except Exception as e:
+        # st.error(f"Failed to load BERT: {e}. Using fuzzywuzzy fallback.")  # Suppress error message
         bert_available = False
-        return None, None
+    return tokenizer, model
 
 tokenizer, model = load_bert()
 
@@ -215,15 +214,13 @@ def certify_data_product(mappings_file):
     certification_status = "✅ Certified" if min_confidence >= 0.6 else "⚠️ Certification Pending: Low confidence mappings (min: {:.2f})".format(min_confidence)
     st.write("Certification Status:", certification_status)
     
-    # AES Encryption for PII
     key = b'Sixteen byte key'  # In production, use a secure key management system
     cipher = AES.new(key, AES.MODE_EAX)
     nonce = cipher.nonce
-    encrypted_customer_id = cipher.encrypt(b"customer_id")  # Example PII
+    encrypted_customer_id = cipher.encrypt(b"customer_id")
     
-    # SHA-256 Hashing for Data Integrity
     hasher = SHA256.new()
-    hasher.update(b"customer_id")  # Hash the same field for integrity check
+    hasher.update(b"customer_id")
     hashed_customer_id = hasher.hexdigest()
     
     config = {
@@ -234,15 +231,15 @@ def certify_data_product(mappings_file):
         "certification": certification_status,
         "encryption": "AES",
         "hashing": "SHA-256",
-        "sample_encrypted_pii": encrypted_customer_id.hex(),  # For demo visibility
-        "sample_hashed_pii": hashed_customer_id[:16]  # Truncated for brevity
+        "sample_encrypted_pii": encrypted_customer_id.hex(),
+        "sample_hashed_pii": hashed_customer_id[:16]
     }
     with open("finforge_config.yaml", "w") as f:
         json.dump(config, f)
     st.write("Certification Report: PII encrypted with AES, integrity ensured with SHA-256, ingress/egress defined")
     return config
 
-# Gen AI Insights Agent
+# Vertex AI Setup with Secrets
 insights_template = """
 Role Assignment:
 You are Banking Insights AI, a highly capable AI assistant specializing in analyzing retail banking data to provide actionable insights for Customer 360 data products. Your goal is to analyze the provided credit data summary and generate insights tailored to the specified use case.
@@ -260,26 +257,45 @@ Output Format:
 """
 insights_prompt = PromptTemplate(input_variables=["credit_summary", "use_case"], template=insights_template)
 
-credentials = service_account.Credentials.from_service_account_file(st.secrets["gcp_service_account"],scopes=["https://www.googleapis.com/auth/cloud-platform"])
-llm = VertexAI(
-    model_name="gemini-1.5-flash",
-    project="inspired-rock-450806-r5",
-    location="us-central1",
-    credentials=credentials,
-    max_output_tokens=1000,
-    temperature=0.7
-)
-insights_chain = RunnableSequence(insights_prompt | llm)
+if "gcp_service_account" in st.secrets:
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=["https://www.googleapis.com/auth/cloud-platform"]
+    )
+    try:
+        llm = VertexAI(
+            model_name="gemini-1.5-flash",
+            project="inspired-rock-450806-r5",
+            location="us-central1",
+            credentials=credentials,
+            max_output_tokens=1000,
+            temperature=0.7
+        )
+    except Exception as e:
+        st.warning(f"Failed to initialize Vertex AI: {e}. Using fallback.")
+        llm = None
+else:
+    st.warning("GCP service account not configured in secrets. Vertex AI disabled.")
+    llm = None
 
+insights_chain = RunnableSequence(insights_prompt | (llm if llm else lambda x: "Vertex AI unavailable; using basic analysis."))
+chat_chain = RunnableSequence(chat_prompt | (llm if llm else lambda x: "Vertex AI unavailable; basic response provided."))
+
+# Gen AI Insights Agent
 def generate_insights(config, use_case):
     credit_summary = credit_df.describe().to_string()
-    try:
-        insight = insights_chain.invoke({"credit_summary": credit_summary, "use_case": use_case})
-    except Exception as e:
-        st.error(f"Gemini error: {e}")
+    if llm:
+        try:
+            insight = insights_chain.invoke({"credit_summary": credit_summary, "use_case": use_case})
+        except Exception as e:
+            st.error(f"Gemini error: {e}")
+            high_risk = credit_df[(credit_df["credit_score"] < 600) & (credit_df["current_balance"] > 0.5 * credit_df["loan_amount"])].shape[0]
+            total = credit_df.shape[0]
+            insight = f"- {high_risk} out of {total} customers ({high_risk/total*100:.1f}%) have high risk (credit_score < 600, balance > 50% loan)."
+    else:
         high_risk = credit_df[(credit_df["credit_score"] < 600) & (credit_df["current_balance"] > 0.5 * credit_df["loan_amount"])].shape[0]
         total = credit_df.shape[0]
-        insight = f"- {high_risk} out of {total} customers ({high_risk/total*100:.1f}%) have high risk (credit_score < 600, balance > 50% loan)."
+        insight = f"- {high_risk} out of {total} customers ({high_risk/total*100:.1f}%) have high risk (credit_score < 600, balance > 50% loan). [Vertex AI disabled]"
     return {"insights": insight}
 
 # Chatbot Agent
@@ -295,7 +311,6 @@ Instructions:
 - If the query is unclear or lacks context, ask for clarification or suggest running a use case.
 """
 chat_prompt = PromptTemplate(input_variables=["context", "query"], template=chat_template)
-chat_chain = RunnableSequence(chat_prompt | llm)
 
 def chatbot_response(query, result=None):
     context = ""
@@ -307,11 +322,14 @@ def chatbot_response(query, result=None):
     else:
         context = "No use case has been run yet."
     
-    try:
-        answer = chat_chain.invoke({"context": context, "query": query})
-    except Exception as e:
-        st.error(f"Gemini error: {e}")
-        answer = "Sorry, I couldn’t connect to Gemini. Please try again or run a use case first."
+    if llm:
+        try:
+            answer = chat_chain.invoke({"context": context, "query": query})
+        except Exception as e:
+            st.error(f"Gemini error: {e}")
+            answer = "Sorry, I couldn’t connect to Gemini. Please try again or run a use case first."
+    else:
+        answer = f"Chatbot disabled on this deployment. Context: {context}"
     return answer
 
 # Orchestrator Agent
@@ -351,7 +369,6 @@ def main():
     st.title("FinForge Dashboard")
     st.write("Secure Customer 360 Data Product for Retail Banking with Multi-Agent AI")
 
-    # Sidebar for Use Case Selection
     st.sidebar.header("Run a Use Case")
     title = st.sidebar.text_input("Enter Use Case Title", "Fraud Detection and Transaction Monitoring")
     description = st.sidebar.text_area("Enter Description (optional)", "Detect fraudulent activities and monitor transactions in real-time to enhance security and reduce financial losses.")
@@ -362,13 +379,11 @@ def main():
         st.sidebar.write("Fields Used:", result["requirements"]["needs"])
         st.sidebar.write("Sample Credit Data:", credit_df.head(5).to_dict())
 
-    # Display Schema
     st.subheader("Customer 360 Schema (finforge_schema.json)")
     try:
         with open("finforge_schema.json", "r") as f:
             schema = json.load(f)
         st.json(schema)
-        # Download button for schema
         schema_str = json.dumps(schema, indent=2)
         st.download_button(
             label="Download finforge_schema.json",
@@ -379,7 +394,6 @@ def main():
     except FileNotFoundError:
         st.write("Run a use case to generate schema.")
 
-    # Display Mappings with Confidence Highlighting
     st.subheader("Source-to-Target Mappings (finforge_mappings.csv)")
     try:
         mappings = pd.read_csv("finforge_mappings.csv")
@@ -387,7 +401,6 @@ def main():
             color = 'green' if row['confidence'] > 0.75 else 'yellow' if row['confidence'] > 0.6 else 'red'
             return [f'background-color: {color}' if col == 'confidence' else '' for col in row.index]
         st.table(mappings.style.apply(highlight_confidence, axis=1))
-        # Download button for mappings
         mappings_csv = mappings.to_csv(index=False)
         st.download_button(
             label="Download finforge_mappings.csv",
@@ -398,13 +411,11 @@ def main():
     except FileNotFoundError:
         st.write("Run a use case to generate mappings.")
 
-    # Display Config (Ingress/Egress)
     st.subheader("Ingress/Egress Configuration (finforge_config.yaml)")
     try:
         with open("finforge_config.yaml", "r") as f:
             config = json.load(f)
         st.json(config)
-        # Download button for config
         config_str = json.dumps(config, indent=2)
         st.download_button(
             label="Download finforge_config.yaml",
@@ -415,14 +426,12 @@ def main():
     except FileNotFoundError:
         st.write("Run a use case to generate config.")
 
-    # Display Gen AI Insights
     st.subheader("Gemini Insights (Vertex AI)")
     try:
         st.write(st.session_state["result"]["insights"])
     except (KeyError, NameError):
         st.write("Run a use case to generate insights.")
 
-    # Chatbot Interface
     st.subheader("Chat with FinForge Assistant")
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
