@@ -1,0 +1,101 @@
+customer_id,name,age,income,location
+1001,Christopher Schwartz,56,97175.54012030845,Muellerville
+1002,Jason Novak,69,187532.00718494502,Port Samanthaville
+1003,Latoya Rodriguez,46,153636.23929559154,Alexandershire
+1004,Laura Thomas,32,85511.93069699201,Lake Katie
+1005,Emily Lane,60,126975.4756489179,Wilcoxville
+1006,Karl Wiley,25,118541.82420439002,Lake Robertmouth
+1007,Thomas Calhoun,78,193399.24413938934,South Annview
+1008,Joseph Dean,38,173570.75427528573,Davemouth
+1009,Robert Howard,56,157044.41872335476,Christinachester
+1010,Billy Landry,75,121747.66250614356,Smithmouth
+1011,Jonathan Humphrey,36,129747.6981628542,South Ernestport
+1012,Eduardo Dunn,40,194093.40223490345,Katherinemouth
+1013,Diana Williams,28,133195.8221067364,South Derrickmouth
+1014,Kathleen Mccormick,28,76919.86094383238,West Melissa
+1015,Deborah Sanchez,41,80366.495969694,Port Sarahside
+1016,Mark Juarez,70,58095.379640710424,East Erictown
+1017,Diana Caldwell,53,32658.18914600297,Matthewstad
+1018,Allison Harris,57,101978.25172008283,Debramouth
+1019,Raymond Phillips,41,97129.85808984685,Jilltown
+1020,Ashley Campbell,20,79892.98970206648,South Josephbury
+1021,Matthew Flores,39,32393.569861564356,Thomashaven
+1022,John Davidson,70,63803.20869509687,Fieldsberg
+1023,Angela Cooper,19,150928.1319672705,East Scottton
+1024,Jennifer Cooper,41,164329.84189030496,Lake Shawnborough
+1025,Tyler Rush,61,133013.19571277194,Robertville
+1026,Kenneth Patton,47,187471.14934726933,Brownside
+1027,Sarah Lyons DVM,55,140683.09433533056,Brownville
+1028,Rose Dillon,19,185543.14484244274,South Patricia
+1029,Erica Soto,77,174506.55822426587,North Lisaberg
+1030,Isabel Reed,38,106406.61460349457,Josephton
+1031,Megan Burton,50,46219.719803369924,Dawnfurt
+1032,Mallory Mcdaniel,29,93039.10287370528,East Kimberlystad
+1033,Kelsey Robinson,75,143703.01295281324,South Jasonhaven
+1034,Daniel Harmon,39,143206.80062497442,Andrealand
+1035,Rebecca King,78,130520.6239103136,Wrighttown
+1036,Lisa Marshall,61,76702.7048083109,East Steven
+1037,Cynthia Hall,42,125411.3823941092,Coxmouth
+1038,Michelle Vargas,66,95097.56870814427,Reneetown
+1039,Jennifer Ford,44,195191.05621614764,New Michael
+1040,Christina Jordan,76,174315.35012523425,Morganberg
+1041,Brenda Diaz,59,152694.01859802846,South Zacharystad
+1042,Lance Palmer,45,70117.43635732247,South Gracemouth
+1043,Steven English,77,73531.61486942507,East Maryborough
+1044,Dr. Thomas Molina,33,36873.71022153333,East Tammymouth
+1045,Benjamin Daniel II,32,150812.69124658385,Millerview
+1046,Carmen Gibson,79,48851.43953801133,Port Nicole
+1047,Cole Castillo,79,104687.20531718092,North Amyfort
+1048,David Cunningham MD,64,64292.26439701735,Port Joshuastad
+1049,Nicholas Martin,79,182279.8112644983,Russellmouth
+1050,Charles Gilbert,68,110812.937940959,New Justinmouth
+1051,Mary Mckinney,61,125756.84723598523,East Taylorside
+1052,Brandi Jones,72,148237.73469244168,Thomasborough
+1053,Joshua Guerrero,69,53686.34724899886,North Angelaburgh
+1054,Katherine Thompson,74,132750.95447722892,North William
+1055,Heather Jenkins,20,121772.98552128443,Petersenfort
+1056,Kathryn Robbins,54,64520.4082049108,New Patricktown
+1057,Anne Wright,68,190285.10699485676,Oconnelltown
+1058,Joshua Allen,24,131807.1293030511,South Williamside
+1059,Pamela Riley,38,148113.43861674977,South Zacharyton
+1060,Austin Delgado,26,179679.53263259382,Lake Joseph
+1061,Nicholas Willis,56,136140.18818274484,New Diana
+1062,Susan Garcia,35,80257.72659241137,Katieborough
+1063,Steve Lozano,21,47934.024171146004,Huangburgh
+1064,Taylor Fernandez,42,107610.87698209473,East Kelly
+1065,Mary Hoffman DVM,77,67134.87432686171,North Allisonberg
+1066,Troy Hart,31,100806.69113796226,Normanview
+1067,Stephanie Hull,67,180157.6440162076,Hendersonmouth
+1068,Julie Davidson,75,85138.65357089657,Pamelamouth
+1069,Xavier Yu,26,50754.95229911447,North Melissaberg
+1070,Christine Smith PhD,43,90570.63247308573,Gonzalesstad
+1071,Gregory Williams,70,184160.83506277818,Hurleyfurt
+1072,Natasha Stevens,19,76262.48239538801,Porterstad
+1073,Jessica Jones,37,140107.32049203158,Donaldport
+1074,Bruce Burns,45,30088.464089203688,Morenobury
+1075,Justin Mitchell,64,89936.70557680873,Tiffanyport
+1076,Matthew Arnold,77,81812.81388686493,Ralphtown
+1077,Heather Jackson,24,57991.4950343001,Erikstad
+1078,Billy Walker,61,120795.20129382513,North Jessicabury
+1079,Gregory Pineda,78,112421.09513102715,Lake Amandatown
+1080,Andrea Huffman,25,147714.12559134595,West Hollyborough
+1081,Tina Wall,64,75800.09674574865,Lake Caseyport
+1082,Gabriel Villarreal,52,71501.3387821216,South Davidfurt
+1083,Christian Carr,31,58609.4771693982,Patriciaton
+1084,Curtis Brown,34,67189.91732742195,North Jessica
+1085,Andrea Gonzales,53,124877.340342948,South Joanna
+1086,Aaron Wilkinson,67,98652.14907986694,Sextonfort
+1087,Angel Merritt,57,41031.68200852686,Jeffreyview
+1088,Wanda Hernandez,21,73165.6203688386,North Erikaberg
+1089,Kristine Owens,19,71968.9306825622,New Allen
+1090,Taylor Moore,79,148371.726382764,Vegaview
+1091,Douglas Phillips,23,151086.00028715516,Davisberg
+1092,Craig Mack PhD,71,55174.77809207798,Dorothymouth
+1093,Timothy Wood,59,199615.88245832012,East Amber
+1094,Melissa Garrison,21,75352.77242679844,Cruzland
+1095,William Dunn,71,196024.542491551,North Amberport
+1096,Bob Cook,46,99876.29226409932,Obrienmouth
+1097,Susan Wolfe,35,35618.62459309323,Byrdburgh
+1098,Teresa Parsons,43,88662.11216453611,New Jenniferville
+1099,Jason Dalton,61,137839.72859923186,North Jasonborough
+1100,Maurice Giles,51,145719.92676431034,Myersview

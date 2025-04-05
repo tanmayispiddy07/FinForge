@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "inspired-rock-450806-r5",
+  "private_key_id": "422a4e433571678a2573f3e4e50dffaf3784451e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDGgnPnXiIEi5WD\nQLNP1+Mmt2OBz0gqlBYW+Ep3T6e+ibaXZJMjgcyKURooHCyeuiZGNBbRKfXUwweV\nkxoEN1UFztKBLN0OEBzIbrByDNeoFBZ527cCB/e8t81mtURNg5I470TSPH5sDr0A\njqhM1QieoW6acyLKtOXdIhBHG3aOW3DAKMWS/KregsTmw6Rq0r9tJaz6UCQpbzjd\nHO2kLZ8yclfy83+mN4+/Y6iGQlbu9pzd493mI0phTHl+yeZkBasb0IVqwPEjKXjZ\nSpv+ElXXIOG6HyeWjNbbb/F8jQP2m3f23S1CwWVV3gKxyvmK9TI5Hf1OzWTD15ey\nT+1XwX3FAgMBAAECggEAVBin6XijiLFpobUjQcv/20MN0MxzkjYyNYDyayE/uyS0\nSea9vukaMe6x2hQ1gvjxhgRDNlFEZ+JHsEIlX2vhhRhdbYQIEhEZYIAkF+0A35/C\n9dTy7tVZSoXDaqOYUA5RP/V9fmNKW5TS1Q2alxIZGLrjFGN6dc21I71uj/E+hIfQ\nMvY6Lfbck7rZw6yIKQ/7YWOIqZ9PA8GVMZ58LwWRLFQcKsz39UAqtKebKMurDwKd\nBAhKqDQZO3dIkbfMdjywjBbeu0uh6DXX7fj/9G7mPPTxxffUv9taWBzxk74XSW7e\nAYkY84Hr+SYBkXiC/K0ThafTdWEFwEzuR9B7w/nrcQKBgQD87nz7i8xXdy5YVBzI\ndmm/KR+J/2PN7hihcVyl8+BCyUr+vtF575SOc+YmZiNGP00MZUaj/9PugXBmnBzb\nfM8TwjRSozG9jJCrC/azTycW9cGCVUDKyT5sVRjCxjJd4jWqQ+KwE6AQZE3s5wvK\n/xvxayYrFlrL8QIVbr73GaqV/wKBgQDI6vMuyertQK6yvJDXjRCNn3cWk7oPdppD\nATN704unQ6th6vweZ3MFh12kyodCThfhCNlIWlppC6JaR8RVBI+ZcfU0ycAiG4Xh\ny0D4dKfM13VwoMmcDthfWrcidgjQ3hZKW4nwLXGqjlTKTHrCzVncIKoGsWFYFTv7\nHs5WgEcUOwKBgFBZJoT2RQSoDKXsmnQoAbHDS4yX/8mEUHjAvVDOpzgwH83LKlpU\n/FlAgiVCnwQKydwdNBKXC2kh32YJQ7WJ8XJyaBK0WvG+/JoJo+YUR/OoQD+5+2ow\nAc+CPOpq8ccXPDsJc7LBmUB7zLFsODfVULghdK+NW2yb9DCAzNNMaP9bAoGAdcNo\nqFsHjOpluzPVPdJcCnaWabBK1TdyMaXplEGpUG/Uaz89aWC/RVVTaPygjReS3X6/\nRK5Y4ctE7N+1zxMuTAVEcR1ztUomjfMBcN+HXwRGvK4xnXwCDNnyD4vZnPsfW5QN\n5K3uOsbUIgLzzWxpqCGpJuUfJm7DymwDCyaDAvMCgYBUDU9HI+arBYOkSU9unjWA\nR/ckr1JU6pRpZE1/tM15gK2msdn0g6oNIPaZ5KmdBlFOL4UG9jtK3+ltD6IyMLft\ny69EII1a0+fpNJoFuCJIws70FBDxs7qvFoJHwXe0EDrazh6Mm3ITRfJXYwD1tT2E\nDCAqRsZk2PeY8EXfoCvDEw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "cityzoning-420@inspired-rock-450806-r5.iam.gserviceaccount.com",
+  "client_id": "100966658156127467369",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cityzoning-420%40inspired-rock-450806-r5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
