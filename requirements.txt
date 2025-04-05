@@ -1,0 +1,12 @@
+streamlit==1.36.0
+pandas==2.2.2
+numpy==1.26.4
+torch==2.3.1
+langgraph==0.1.4
+pycryptodome==3.20.0  # For AES encryption and SHA-256 hashing
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.25.1  # Optional speedup for fuzzywuzzy
+google-auth==2.30.0  # For Google Vertex AI credentials
+langchain-google-vertexai==1.0.5  # For Vertex AI integration
+langchain-core==0.2.9  # Core langchain dependencies
+transformers==4.41.2  # For BERT (optional, with fallback)
