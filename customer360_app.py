@@ -30,9 +30,7 @@ def load_bert():
         tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
         model = BertModel.from_pretrained('bert-base-uncased')
         bert_available = True
-        # st.write("BERT loaded successfully.")  # Commented out to avoid clutter
     except Exception as e:
-        # st.error(f"Failed to load BERT: {e}. Using fuzzywuzzy fallback.")  # Suppress error message
         bert_available = False
     return tokenizer, model
 
@@ -214,7 +212,7 @@ def certify_data_product(mappings_file):
     certification_status = "✅ Certified" if min_confidence >= 0.6 else "⚠️ Certification Pending: Low confidence mappings (min: {:.2f})".format(min_confidence)
     st.write("Certification Status:", certification_status)
     
-    key = b'Sixteen byte key'  # In production, use a secure key management system
+    key = b'Sixteen byte key'
     cipher = AES.new(key, AES.MODE_EAX)
     nonce = cipher.nonce
     encrypted_customer_id = cipher.encrypt(b"customer_id")
@@ -239,7 +237,7 @@ def certify_data_product(mappings_file):
     st.write("Certification Report: PII encrypted with AES, integrity ensured with SHA-256, ingress/egress defined")
     return config
 
-# Vertex AI Setup with Secrets
+# Vertex AI Setup with Secrets and Chatbot Prompt
 insights_template = """
 Role Assignment:
 You are Banking Insights AI, a highly capable AI assistant specializing in analyzing retail banking data to provide actionable insights for Customer 360 data products. Your goal is to analyze the provided credit data summary and generate insights tailored to the specified use case.
@@ -256,6 +254,19 @@ Output Format:
 - Include at least one numerical insight (e.g., 'X% of customers...')
 """
 insights_prompt = PromptTemplate(input_variables=["credit_summary", "use_case"], template=insights_template)
+
+chat_template = """
+Role Assignment:
+You are FinForge Assistant, an AI designed to help users understand the Customer 360 data product dashboard for retail banking. Answer queries based on the provided dashboard outputs.
+Context: {context}
+Query: {query}
+
+Instructions:
+- Use the context (schema, mappings, config, insights) to provide accurate answers.
+- Be concise and clear, focusing on the dashboard data.
+- If the query is unclear or lacks context, ask for clarification or suggest running a use case.
+"""
+chat_prompt = PromptTemplate(input_variables=["context", "query"], template=chat_template)
 
 if "gcp_service_account" in st.secrets:
     credentials = service_account.Credentials.from_service_account_info(
@@ -299,19 +310,6 @@ def generate_insights(config, use_case):
     return {"insights": insight}
 
 # Chatbot Agent
-chat_template = """
-Role Assignment:
-You are FinForge Assistant, an AI designed to help users understand the Customer 360 data product dashboard for retail banking. Answer queries based on the provided dashboard outputs.
-Context: {context}
-Query: {query}
-
-Instructions:
-- Use the context (schema, mappings, config, insights) to provide accurate answers.
-- Be concise and clear, focusing on the dashboard data.
-- If the query is unclear or lacks context, ask for clarification or suggest running a use case.
-"""
-chat_prompt = PromptTemplate(input_variables=["context", "query"], template=chat_template)
-
 def chatbot_response(query, result=None):
     context = ""
     if result:
