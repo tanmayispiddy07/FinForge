@@ -1,7 +1,6 @@
 
 
 
-```markdown
 # FinForge: Customer 360 Data Product for Retail Banking
 
 ![FinForge Dashboard](https://via.placeholder.com/800x400.png?text=FinForge+Dashboard)  
