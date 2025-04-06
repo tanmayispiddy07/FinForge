@@ -3,8 +3,7 @@
 
 # FinForge: Customer 360 Data Product for Retail Banking
 
-![FinForge Dashboard](https://via.placeholder.com/800x400.png?text=FinForge+Dashboard)  
-*Placeholder image: Replace with a screenshot of your app in action.*
+
 
 FinForge is a secure, multi-agent AI-driven Streamlit application designed to create a Customer 360 data product for retail banking. It processes synthetic banking data to generate schemas, mappings, configurations, and actionable insights, leveraging Google Vertex AI for advanced analytics and a chatbot interface. The app includes AES encryption and SHA-256 hashing for security, making it suitable for demonstrating data product workflows in a banking context.
 
