@@ -16,7 +16,8 @@ FinForge is a secure, multi-agent AI-driven Streamlit application designed to cr
 - **Interactive UI**: Built with Streamlit for a user-friendly dashboard and chatbot experience.
 
 ## Demo
-Check out the deployed app on Streamlit Cloud: [FinForge Demo](https://finforge.streamlit.app) *(Update with your actual URL after deployment)*.
+Check out the deployed app on Streamlit Cloud: [FinForge Demo](https://finforge-c360.streamlit.app) .
+for live demo video : [Youtube Demo](https://youtu.be/3zZd4SGwnBA) .
 
 ## Prerequisites
 - Python 3.9–3.12
